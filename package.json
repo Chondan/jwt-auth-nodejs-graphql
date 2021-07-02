@@ -1,0 +1,30 @@
+{
+  "name": "jwt-auth-nodejs-graphql",
+  "version": "1.0.0",
+  "description": "> Link: https://www.youtube.com/watch?v=25GS0MLT8JU",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "yarn workspace server start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chondan/jwt-auth-nodejs-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chondan/jwt-auth-nodejs-graphql/issues"
+  },
+  "homepage": "https://github.com/Chondan/jwt-auth-nodejs-graphql#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
+}
