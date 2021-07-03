@@ -1,0 +1,26 @@
+# ----- CONFIG -----
+@host=http://localhost:3000
+@token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYyNTI5OTQ4NywiZXhwIjoxNjI1MzAwMzg3fQ.FW8AqeuXVbWZ5tTJs05laf8eI_5m9YxBZputeqOxLoA
+
+# ----- QUERIES -----
+# hello
+@qHello=query { hello }
+# login
+@qLogin=mutation { login(email:"chondan@hotmail.com", password:"chondan") { accessToken } }
+# bye
+@qBye=query { bye }
+
+# ----- GraphQL Endpoint ----- 
+POST {{host}}/graphql
+Authorization: {{token}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{{qBye}}
+
+###
+
+# ----- REFRESH TOKEN ROUTE -----
+@cookie=jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYyNTI5OTQ4NywiZXhwIjoxNjI1MzAwMzg3fQ.FW8AqeuXVbWZ5tTJs05laf8eI_5m9YxBZputeqOxLoA
+POST {{host}}/refresh_token
+Cookie: {{cookie}}
