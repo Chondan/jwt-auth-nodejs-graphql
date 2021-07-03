@@ -1,17 +1,15 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 // import {createConnection} from "typeorm";
 import express from 'express';
 // import {User} from "./entity/User";
 
-
 (async () => {
-
-    const app = express();
-    app.get('/', (_req, res) => res.send('Hello World'));
-    app.listen(3000, () => console.log('Server started: Listening at port 3000'));
-    
+  const app = express();
+  app.get('/', (_req, res) => res.send('Hello World'));
+  app.listen(3000, () => console.log('Server started: Listening at port 3000'));
 })();
 
+// eslint-disable-next-line max-len
 // createConnection().then(async (connection: { manager: { save: (arg0: User) => any; find: (arg0: typeof User) => any; }; }) => {
 
 //     console.log("Inserting a new user into the database...");
