@@ -1,12 +1,13 @@
 import {
-  Arg, Ctx, Mutation, Query, Resolver, UseMiddleware,
+  Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware,
 } from 'type-graphql';
 import { hash, compare } from 'bcryptjs';
-import { createAccessToken, createRefreshToken } from '@src/util/auth';
-import { MyContext } from '@src/MyContext';
+import { createAccessToken, createRefreshToken, sendRefreshToken } from '@src/util/auth';
+import { MyContext } from '@src/util/MyContext';
 import { User } from '@src/entity/User';
 import { LoginResponse } from '@src/grqphql/objectType/LoginResponse';
 import { isAuth } from '@src/middleware/isAuth';
+import { getConnection } from 'typeorm';
 
 @Resolver()
 export class UserResolver {
@@ -18,6 +19,17 @@ export class UserResolver {
   @Query(() => [User])
   users() {
     return User.find();
+  }
+
+  @Mutation(() => Boolean)
+  async revokeRefreshTokensForUser(
+    @Arg('userId', () => Int) userId: number,
+  ) {
+    await getConnection()
+      .getRepository(User)
+      .increment({ id: userId }, 'tokenVersion', 1);
+
+    return true;
   }
 
   @Query(() => String)
@@ -45,13 +57,10 @@ export class UserResolver {
     }
 
     // login successful
-    const accessToken = createAccessToken(user);
+    sendRefreshToken(res, createRefreshToken(user));
 
-    // refresh token
-    const refreshToken = createRefreshToken(user);
-    res.cookie('jid', refreshToken, { httpOnly: true });
     return {
-      accessToken,
+      accessToken: createAccessToken(user),
     };
   }
 

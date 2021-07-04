@@ -1,6 +1,6 @@
 # ----- CONFIG -----
 @host=http://localhost:3000
-@token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYyNTI5OTQ4NywiZXhwIjoxNjI1MzAwMzg3fQ.FW8AqeuXVbWZ5tTJs05laf8eI_5m9YxBZputeqOxLoA
+@token= Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYyNTM4NzkwNiwiZXhwIjoxNjI1Mzg4ODA2fQ.OsnNRrFSHHFSoSY_eqirciXAyupLyufUEmJ8ZW4Pf-Y
 
 # ----- QUERIES -----
 # hello
@@ -16,11 +16,10 @@ Authorization: {{token}}
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-{{qBye}}
+{{qLogin}}
 
 ###
 
 # ----- REFRESH TOKEN ROUTE -----
-@cookie=jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYyNTI5OTQ4NywiZXhwIjoxNjI1MzAwMzg3fQ.FW8AqeuXVbWZ5tTJs05laf8eI_5m9YxBZputeqOxLoA
+# *** REST Client remember Cookies for subsequent requests ***
 POST {{host}}/refresh_token
-Cookie: {{cookie}}

@@ -8,7 +8,7 @@ import { UserResolver } from '@src/grqphql/resolvers/UserResolver';
 import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
 import { User } from './entity/User';
-import { createAccessToken } from './util/auth';
+import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/auth';
 
 (async () => {
   const app = express();
@@ -20,7 +20,6 @@ import { createAccessToken } from './util/auth';
   app.get('/', (_req, res) => res.send('Hello World'));
   app.post('/refresh_token', async (req, res) => {
     const { jid: token } = req.cookies;
-    console.log({ cookie: req.cookies });
     if (!token) {
       return res.send({ ok: false, accessToken: '' });
     }
@@ -39,6 +38,14 @@ import { createAccessToken } from './util/auth';
     if (!user) {
       return res.send({ ok: false, accessToken: '' });
     }
+
+    // Check tokenVersion
+    if (user.tokenVersion !== payload.tokenVersion) {
+      return res.send({ ok: false, accessToken: '' });
+    }
+
+    // Update refresh token
+    sendRefreshToken(res, createRefreshToken(user));
 
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });

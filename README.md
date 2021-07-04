@@ -1,6 +1,6 @@
 # JWT Authentication Node.js Tutorial with GraphQL and React
 
-> Link: https://www.youtube.com/watch?v=25GS0MLT8JU
+> Link: https://www.youtube.com/watch?v=25GS0MLT8JU (1:12:53)
 
 ## Technologies
 
@@ -45,3 +45,6 @@
     - [Line Break Removal Tool](https://www.textfixer.com/tools/remove-line-breaks.php)
 - [cookie-parser](https://www.npmjs.com/package/cookie-parser)
     - Parse `Cookie` header and populate `req.cookies` with an object keyed by the cookie names.
+- Revoke all of the user refresh tokens by versioning the token
+    - the token is valid if `user.tokenVersion === payload.tokenVersion`
+    - we can increment the `tokenVersion` column of user in database to invalidate the tokens when the users forgot their password or they were hacked.
