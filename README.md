@@ -6,11 +6,18 @@
 
 - [x] TypeScript
 - [x] GraphQL
+    - [ ] [@graphql-codegen/cli](https://www.npmjs.com/package/@graphql-codegen/cli): GraphQL Code Generator
+        - `npx graphql-codegen init`
 - [ ] TypeGraphQL
 - [ ] [TypeORM](https://typeorm.io/#/)
 - [x] PostgresQL
 - [x] React
 - [ ] Apollo
+    - [ ] [Apollo Client](https://www.apollographql.com/docs/react/get-started/)
+    - [ ] [apollo-boost](https://www.npmjs.com/package/apollo-boost)
+        - The fastest easiest way to get started with Apollo Client!
+- [x] react-router-dom
+    - `RouterComponentProps`: Props that were passed by default to the child component of `Route`
 
 ## Lesson learned
 
@@ -48,3 +55,32 @@
 - Revoke all of the user refresh tokens by versioning the token
     - the token is valid if `user.tokenVersion === payload.tokenVersion`
     - we can increment the `tokenVersion` column of user in database to invalidate the tokens when the users forgot their password or they were hacked.
+- User snippets in vscode -> `ctrl + shift + p` and then search for `user snippets`
+```json
+{
+	// Place your snippets for typescriptreact here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"My Component": {
+		"prefix": "rh",
+		"body": [
+			"interface Props {}",
+			"export const $1: React.FC<Props> = () => { return (<div>$2</div>); }"
+		],
+		"description": "My custom snippet"
+	}
+}
+```
+- [VSCode shortcut](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+    - `ctrl + space` to show auto complete
+    - `ctrl + .` to show quick fix
