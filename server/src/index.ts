@@ -7,6 +7,7 @@ import { createConnection } from 'typeorm';
 import { UserResolver } from '@src/grqphql/resolvers/UserResolver';
 import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
+import cors from 'cors';
 import { User } from './entity/User';
 import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/auth';
 
@@ -15,6 +16,10 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/
 
   // Setup middleware
   app.use(cookieParser());
+  app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }));
 
   // Routes
   app.get('/', (_req, res) => res.send('Hello World'));
@@ -60,8 +65,9 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/
     }),
     context: ({ req, res }) => ({ req, res }),
   });
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   // eslint-disable-next-line no-console
-  app.listen(3000, () => console.log('Server started: Listening at port 3000'));
+  const PORT = 3001;
+  app.listen(PORT, () => console.log(`Server started: Listening at port ${PORT}`));
 })();
