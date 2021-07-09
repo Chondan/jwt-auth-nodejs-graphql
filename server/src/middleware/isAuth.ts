@@ -1,23 +1,16 @@
-import { verify } from 'jsonwebtoken';
 import { MyContext } from '@src/util/MyContext';
 import { MiddlewareFn } from 'type-graphql';
+import { parseTokenFromHeaders } from '@src/util/token';
 
 export const isAuth: MiddlewareFn<MyContext> = ({ context }, next) => {
-  const { req: { headers: { authorization } } } = context;
+  const { req } = context;
+  const { error, msg, payload } = parseTokenFromHeaders({ req });
 
-  if (!authorization) {
-    throw new Error('not authenticated');
+  if (error) {
+    throw new Error(msg);
   }
 
-  try {
-    const [, token] = authorization.split(' ');
-    const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
-    context.payload = payload as any;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    throw new Error('not authenticated');
-  }
+  context.payload = payload as any;
 
   return next();
 };
