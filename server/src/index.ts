@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import { verify } from 'jsonwebtoken';
 import cors from 'cors';
 import { User } from './entity/User';
-import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/auth';
+import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/token';
 
 (async () => {
   const app = express();
@@ -67,7 +67,7 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from './util/
   });
   apolloServer.applyMiddleware({ app, cors: false });
 
-  // eslint-disable-next-line no-console
   const PORT = 3001;
+  // eslint-disable-next-line no-console
   app.listen(PORT, () => console.log(`Server started: Listening at port ${PORT}`));
 })();
