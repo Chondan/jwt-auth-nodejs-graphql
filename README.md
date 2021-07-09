@@ -16,6 +16,8 @@
     - [ ] [Apollo Client](https://www.apollographql.com/docs/react/get-started/)
     - [ ] [apollo-boost](https://www.npmjs.com/package/apollo-boost)
         - The fastest easiest way to get started with Apollo Client!
+    - [ ] [apollo-link-token-refresh](https://github.com/newsiberian/apollo-link-token-refresh#readme)
+        - An Apollo Link that performs renew expired JWT (access tokens)
 - [x] react-router-dom
     - `RouterComponentProps`: Props that were passed by default to the child component of `Route`
 
