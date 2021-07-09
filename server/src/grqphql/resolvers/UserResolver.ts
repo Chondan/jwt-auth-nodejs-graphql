@@ -2,7 +2,9 @@ import {
   Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware,
 } from 'type-graphql';
 import { hash, compare } from 'bcryptjs';
-import { createAccessToken, createRefreshToken, sendRefreshToken } from '@src/util/auth';
+import {
+  createAccessToken, createRefreshToken, parseTokenFromHeaders, sendRefreshToken,
+} from '@src/util/token';
 import { MyContext } from '@src/util/MyContext';
 import { User } from '@src/entity/User';
 import { LoginResponse } from '@src/grqphql/objectType/LoginResponse';
@@ -19,6 +21,16 @@ export class UserResolver {
   @Query(() => [User])
   users() {
     return User.find();
+  }
+
+  @Query(() => User, { nullable: true })
+  @UseMiddleware(isAuth)
+  me(
+    @Ctx() { req }: MyContext,
+  ) {
+    const { payload } = parseTokenFromHeaders({ req });
+    const { userId } = payload as any;
+    return User.findOne(userId);
   }
 
   @Mutation(() => Boolean)
@@ -61,7 +73,16 @@ export class UserResolver {
 
     return {
       accessToken: createAccessToken(user),
+      user,
     };
+  }
+
+  @Mutation(() => Boolean)
+  async logout(
+    @Ctx() { res }: MyContext,
+  ) {
+    sendRefreshToken(res, '');
+    return true;
   }
 
   @Mutation(() => Boolean)
