@@ -1,12 +1,16 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Link, Switch,
+  BrowserRouter as Router, Route, Switch,
 } from 'react-router-dom';
 
-import { Register, Login, Home } from '@pages/index';
+import {
+  Register, Login, Home, Bye,
+} from '@pages/index';
 
-// Nav
-interface INav {
+import { Header } from '@components/Header';
+
+// ---- NAV ----
+export interface INav {
     path: string;
     linkText: string;
 }
@@ -23,10 +27,14 @@ const nav: INav[] = [
     path: '/login',
     linkText: 'Login',
   },
+  {
+    path: '/bye',
+    linkText: 'Bye',
+  },
 
 ];
 
-// Routes
+// ---- ROUTES ----
 interface IRoute {
     path: string;
     component: React.ReactNode;
@@ -44,16 +52,15 @@ const routes: IRoute[] = [
     path: '/',
     component: Home,
   },
+  {
+    path: '/bye',
+    component: Bye,
+  },
 ];
 
 const RouteComponent: React.FC = () => (
     <Router>
-        <header className='nav'>
-            {nav.map((n) => {
-              const { path, linkText } = n;
-              return <Link key={Math.random().toString(36)} to={path}>{linkText}</Link>;
-            })}
-        </header>
+        <Header nav={nav} />
         <Switch>
             {routes.map((route) => {
               const { path, component } = route;
